@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import MailTemplate from './mail_template';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { signOut } from 'firebase/auth';
-import { auth } from './firebase/firebase';
-
 
 
 const EmailSignature = (props) => {
-
 
 
     const [name, setName] = useState('');
@@ -24,7 +19,6 @@ const EmailSignature = (props) => {
     const [officeLandline, setOfficeLandline] = useState('0484 4270700');
     const [officePhone, setOfficePhone] = useState('+91 8129778244');
 
-    const [copied, setCopied] = useState(false);
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
 
@@ -346,8 +340,6 @@ const EmailSignature = (props) => {
                 Email Signature Generator
                 <button className='logout_but' onClick={() => props.logout()} style={{ marginLeft: "auto", border: "none", background: "none", color: "white", cursor: "pointer" }}>Log Out</button>
             </h2>
-
-
             <br />
             <div id="test" class="container">
                 <form className="form" style={{ margin: "-10px  0px -20px 0px", display: "flex", flexDirection: "column", alignItems: "center" }}>
