@@ -5,13 +5,13 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDh8JB1-nEVjLnscIBUgp0ZJwC-OQT8j74",
-  authDomain: "safiya-email-sign-generator.firebaseapp.com",
-  projectId: "safiya-email-sign-generator",
-  storageBucket: "safiya-email-sign-generator.appspot.com",
-  messagingSenderId: "542138381502",
-  appId: "1:542138381502:web:a35c41c1a613f4bbe5daef",
-  measurementId: "G-B057GP6TYW"
+  apiKey: "AIzaSyCUNKVuCH15BpAFvAc500uvIwlXA5p3_hc",
+  authDomain: "safiya-travels.firebaseapp.com",
+  projectId: "safiya-travels",
+  storageBucket: "safiya-travels.appspot.com",
+  messagingSenderId: "531082481267",
+  appId: "1:531082481267:web:12db2da02915d6afec6406",
+  measurementId: "G-ECYG5W26Q4"
 };
 
 // Initialize Firebase
