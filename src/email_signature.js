@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Resizer from 'react-image-file-resizer';
 
 
 const EmailSignature = (props) => {
@@ -90,7 +91,7 @@ const EmailSignature = (props) => {
                                 <tr >
                                 ${image ? `
                                     <td style="padding-right:50px;padding-top:10px;" >
-                                    <div style="width: 200px; height: 210px; overflow: hidden; border-radius: 15px;">
+                                    <div style="width: 200px; height: 200px; overflow: hidden; border-radius: 15px;">
                                         <img src="${imageDataURL}" style="width: 100%;" />
                                     </div>
                                     </td>`: ''}
@@ -212,7 +213,7 @@ const EmailSignature = (props) => {
                                 <tr >
                                 ${image ? `
                                 <td style="padding-right:50px;padding-top:10px;" >
-                                    <div style="width: 200px; height: 210px; overflow: hidden; border-radius: 15px;">
+                                    <div style="width: 200px; height: 200px; overflow: hidden; border-radius: 15px;">
                                         <img src="${image ? URL.createObjectURL(image) : ''}" style="width: 100%;" />
                                     </div> 
                                 </td>`: ''}
@@ -324,6 +325,19 @@ const EmailSignature = (props) => {
             setImageUrl(event.target.result);
         };
         reader.readAsDataURL(selectedFile);
+        Resizer.imageFileResizer(
+            selectedFile,
+            200,
+            200,
+            'JPEG',
+            100,
+            0,
+            (uri) => {
+                setImageUrl(uri);
+                setImage(selectedFile);
+            },
+            'base64'
+        );
     };
     return (
         <div id="test" className="container">
