@@ -148,8 +148,8 @@ const EmailSignature = (props) => {
                                                 <tr>
                                                     <td>
                                                         <div style='padding-bottom:2px;font-size:14px;line-height:35px;'>
-                                                            <span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/9ZmMqfV/24-7.png"></span>&nbsp;<span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${officeLandline}(24/7)</span>
-                                                            &nbsp;<span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/LR0sXtB/call.png"></span>&nbsp;<span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${officePhone}</span>
+                                                            <span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/LR0sXtB/call.png"></span>&nbsp;<span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${officeLandline}(24/7)</span>
+                                                            &nbsp;<span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/3sRHm5Y/smartphone-1.png"></span>&nbsp;<span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${officePhone}</span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -273,8 +273,8 @@ const EmailSignature = (props) => {
                                                 <tr>
                                                     <td>
                                                         <div style='padding-bottom:2px;font-size:14px;line-height:35px;'>
-                                                            <span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/9ZmMqfV/24-7.png"></span>&nbsp;<span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${officeLandline}(24/7)</span>
-                                                            &nbsp;<span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/LR0sXtB/call.png"></span>&nbsp;<span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${officePhone}</span>
+                                                            <span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/LR0sXtB/call.png"></span>&nbsp;<span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${officeLandline}(24/7)</span>
+                                                            &nbsp;<span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/3sRHm5Y/smartphone-1.png"></span>&nbsp;<span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${officePhone}</span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -524,7 +524,6 @@ const EmailSignature = (props) => {
                         </fieldset>
                     </div>
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-
                     </div>
 
                     <br />
@@ -543,6 +542,7 @@ const EmailSignature = (props) => {
                                 margin: "0 auto",
                                 display: "block",
                                 borderRadius: "5px",
+                                cursor: "pointer",
                             }}
                         >
                             {'Copy to Clipboard'}

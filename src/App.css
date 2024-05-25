@@ -20,7 +20,6 @@
 
 .App-header {
   background-color: #282c34;
-  /* min-height: 10vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -120,4 +119,25 @@
   to {
     transform: rotate(360deg);
   }
+}
+.loading-spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #BF1E2E;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+  margin: 20% auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
