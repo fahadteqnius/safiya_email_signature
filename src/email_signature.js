@@ -75,17 +75,16 @@ const EmailSignature = (props) => {
 
         let signatureText = `
         <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
         <style>
         </style>
         </head>
         <body>
+        <a href="https://b2b.safiyago.com/"></a>
         <div class="col-7">
             <div class="card" align:center;>
                 <div class="card-body">
                     <div id="signature-container">
+                    <a href="https://b2b.safiyago.com" target="_blank"  style="display: block;  text-decoration: none;"> 
                         <table width="600" cellspacing="0" ; cellpadding="0" border="0">
                             <tbody>
                                 <tr >
@@ -175,7 +174,7 @@ const EmailSignature = (props) => {
                                                     <td style="padding:10px 0px 0px">
                                                         <div style="font-weight: bold;font-size:14px;">
                                                         </div>
-                                                        <img id="compLogoField" alt="Safiya Logo" style="width:350px;border-radius:0%;" src="https://i.ibb.co/wRtV6p4/logo.png" width="100" class="CToWUd" />
+                                                        <img id="compLogoField" alt="Safiya Logo" style="width:350px;border-radius:0%;" src="https://i.ibb.co/N6GGvGc/safiya-logo.png" width="100" class="CToWUd" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -189,6 +188,7 @@ const EmailSignature = (props) => {
                 <div class="footer" style="background-color: #BF1E2E; color: white; text-align: center; padding: 8px;"></div>
             </div>
         </div>`;
+        signatureText = signatureText.replace(/(\r\n|\n|\r)/gm, "").replace(/(>\s+<)/g,'><');
 
         function listener(e) {
             e.clipboardData.setData("text/html", signatureText);
@@ -208,6 +208,7 @@ const EmailSignature = (props) => {
             <div class="card" align:center; >
                 <div class="card-body">
                     <div id="signature-container">
+                    <a href="https://b2b.safiyago.com" target="_blank"  style="display: block;  text-decoration: none;"> 
                         <table width="600" cellspacing="0" ; cellpadding="0" border="0">
                             <tbody>
                                 <tr >
@@ -299,7 +300,7 @@ const EmailSignature = (props) => {
                                                     <td style="padding:10px 0px 0px">
                                                         <div style="font-weight: bold;font-size:14px;">
                                                         </div>
-                                                        <img id="compLogoField" alt="Safiya Logo" style="width:350px;border-radius:0%;" src="https://i.ibb.co/wRtV6p4/logo.png" width="100" class="CToWUd" />
+                                                        <img id="compLogoField" alt="Safiya Logo" style="width:350px;border-radius:0%;" src="https://i.ibb.co/N6GGvGc/safiya-logo.png" width="100" class="CToWUd" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -340,6 +341,7 @@ const EmailSignature = (props) => {
         );
     };
     return (
+        
         <div id="test" className="container">
             <h2 style={{
                 display: "flex",
