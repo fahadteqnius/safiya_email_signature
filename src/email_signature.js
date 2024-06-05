@@ -263,7 +263,7 @@ const EmailSignature = (props) => {
                                                                 <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/d54nnvM/email-1.png">
                                                             </span>
                                                             &nbsp;
-                                                            <a id="empMailField" style="color:black;vertical-align: 4px;" class="v-align-offset" href="mailto:${email}" target="_blank">${email}</a>
+                                                            <span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${email}</span>
                                                         </div>
                                                     </td>
                                                 </tr>
