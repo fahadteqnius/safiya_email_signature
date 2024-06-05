@@ -3,7 +3,9 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Resizer from 'react-image-file-resizer';
-
+import { storage } from './firebaseConfig';
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import html2canvas from 'html2canvas';
 
 const EmailSignature = (props) => {
 
@@ -19,7 +21,6 @@ const EmailSignature = (props) => {
     const [line3, setLine3] = useState('Kochi, Ernakulam,Kerala,India, 682016');
     const [officeLandline, setOfficeLandline] = useState('0484 4270700');
     const [officePhone, setOfficePhone] = useState('+91 8129778244');
-
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
 
@@ -71,33 +72,31 @@ const EmailSignature = (props) => {
     };
 
 
-    function copyToClip(htmlContent, imageDataURL) {
-
-        let signatureText = `
+    const copyToClip = async () => {
+        try {
+            const uploadedImageUrl = await handleImageUpload();
+            let signatureText = `
         <head>
-        <style>
-        </style>
+        <style></style>
         </head>
         <body>
-        <a href="https://b2b.safiyago.com/"></a>
-        <div class="col-7">
+        <div  class="col-7" style="font-family: Verdana;>
             <div class="card" align:center;>
                 <div class="card-body">
                     <div id="signature-container">
-                    <a href="https://b2b.safiyago.com" target="_blank"  style="display: block;  text-decoration: none;"> 
                         <table width="600" cellspacing="0" ; cellpadding="0" border="0">
                             <tbody>
                                 <tr >
-                                ${image ? `
+                                ${uploadedImageUrl ? `
                                     <td style="padding-right:50px;padding-top:10px;" >
                                     <div style="width: 200px; height: 200px; overflow: hidden; border-radius: 15px;">
-                                        <img src="${imageDataURL}" style="width: 100%;" />
+                                        <img src="${uploadedImageUrl}" style="width: 100%;" />
                                     </div>
                                     </td>`: ''}
                                     <td style="padding-bottom:60px; padding-top:100px;padding-right:20px; vertical-align:top;" valign="top">
                                         <table style="width: 400px;">
                                             <tbody>
-                                            <tr>
+                                                <tr>
                                                     <td style="text-align: center; font-weight: bold; line-height: 50px; font-size: 50px; color: #030303; font-family: Montserrat;" id="empNameField">
                                                         <span style="border-bottom: 3px solid #B5222B; white-space: nowrap;">${name}</span>
                                                     </td>
@@ -166,7 +165,7 @@ const EmailSignature = (props) => {
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <div style='padding-top:35px;font-size:14px;;'><span style="font-weight:600;color:#e70312"></span><span style="vertical-align: 4px;" class="v-align-offset" id="compAddressField">www.safiya.travel</span></div>
+                                                    <div style='padding-top:40px;font-size:14px;'><span style="font-weight:600;color:#e70312"></span><span style="vertical-align: 4px;" class="v-align-offset" id="compAddressField">www.safiya.travel</span></div>
                                                     </td>
                                                     
                                                 </tr>
@@ -174,6 +173,7 @@ const EmailSignature = (props) => {
                                                     <td style="padding:10px 0px 0px">
                                                         <div style="font-weight: bold;font-size:14px;">
                                                         </div>
+                                                        <a href="https://b2b.safiyago.com" target="_blank"  style="display: block;  text-decoration: none;"> 
                                                         <img id="compLogoField" alt="Safiya Logo" style="width:350px;border-radius:0%;" src="https://i.ibb.co/N6GGvGc/safiya-logo.png" width="100" class="CToWUd" />
                                                     </td>
                                                 </tr>
@@ -185,40 +185,45 @@ const EmailSignature = (props) => {
                         </table>
                     </div>
                 </div>
-                <div class="footer" style="background-color: #BF1E2E; color: white; text-align: center; padding: 8px;"></div>
+                <div class="footer" style="background-color: #BF1E2E; color: white; text-align: center; padding: 8px; color:#BF1E2E ;"></div>
             </div>
-        </div>`;
-        signatureText = signatureText.replace(/(\r\n|\n|\r)/gm, "").replace(/(>\s+<)/g,'><');
+        </div>
+        </body>`;
+            signatureText = signatureText.replace(/(\r\n|\n|\r)/gm, "").replace(/(>\s+<)/g, '><');
 
-        function listener(e) {
-            e.clipboardData.setData("text/html", signatureText);
-            e.clipboardData.setData("text/plain", signatureText);
-            e.preventDefault();
+            function listener(e) {
+                e.clipboardData.setData("text/html", signatureText);
+                e.clipboardData.setData("text/plain", signatureText);
+                e.preventDefault();
+            }
+
+            document.addEventListener("copy", listener);
+            document.execCommand("copy");
+            document.removeEventListener("copy", listener);
+            // toast.success("Signature copied to clipboard!");
+        } catch (error) {
+            console.error("Error copying to clipboard:", error);
+            // toast.error("Failed to copy signature. Please try again.");
         }
-
-        document.addEventListener("copy", listener);
-        document.execCommand("copy");
-        document.removeEventListener("copy", listener);
     };
 
 
     const generateSignature = () => {
         let signatureText = `
-        <div class="col-7" >
-            <div class="card" align:center; >
+        <div class="col-7" style="font-family: Verdana;">
+            <div id="signature-container" class="card" align:center;  >
                 <div class="card-body">
-                    <div id="signature-container">
-                    <a href="https://b2b.safiyago.com" target="_blank"  style="display: block;  text-decoration: none;"> 
+                    <div >
                         <table width="600" cellspacing="0" ; cellpadding="0" border="0">
-                            <tbody>
+                            <tbody >
                                 <tr >
                                 ${image ? `
-                                <td style="padding-right:50px;padding-top:10px;" >
+                                <td style="padding-right:50px;padding-top:10px; padding-left:50px;" >
                                     <div style="width: 200px; height: 200px; overflow: hidden; border-radius: 15px;">
                                         <img src="${image ? URL.createObjectURL(image) : ''}" style="width: 100%;" />
                                     </div> 
                                 </td>`: ''}
-                                    <td style="padding-bottom:60px; padding-top:100px;padding-right:20px; vertical-align:top;" valign="top">
+                                    <td style="padding-bottom:60px; padding-top:50px;padding-right:20px; vertical-align:top;" valign="top">
                                         <table style="width: 400px;">
                                             <tbody>
                                                 <tr>
@@ -296,10 +301,13 @@ const EmailSignature = (props) => {
                                                         <div style='padding-top:40px;font-size:14px;'><span style="font-weight:600;color:#e70312"></span><span style="vertical-align: 4px;" class="v-align-offset" id="compAddressField">www.safiya.travel</span></div>
                                                     </td>
                                                 </tr>
+                                                
                                                 <tr>
+                                                
                                                     <td style="padding:10px 0px 0px">
                                                         <div style="font-weight: bold;font-size:14px;">
                                                         </div>
+                                                        <a href="https://b2b.safiyago.com" target="_blank"  style="display: block;  text-decoration: none;"> 
                                                         <img id="compLogoField" alt="Safiya Logo" style="width:350px;border-radius:0%;" src="https://i.ibb.co/N6GGvGc/safiya-logo.png" width="100" class="CToWUd" />
                                                     </td>
                                                 </tr>
@@ -311,7 +319,7 @@ const EmailSignature = (props) => {
                         </table>
                     </div>
                 </div>
-                <div class="footer" style="background-color: #BF1E2E; color: white; text-align: center; padding: 8px;"></div>
+                <div className="footer" style="background-color: #BF1E2E; color: white; text-align: center; padding: 8px;"></div>
             </div>
         </div>`;
 
@@ -340,8 +348,78 @@ const EmailSignature = (props) => {
             'base64'
         );
     };
+    const handleImageUpload = async () => {
+        if (!image) return '';
+        const storageRef = ref(storage, `images/${image.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, image);
+
+        return new Promise((resolve, reject) => {
+            uploadTask.on('state_changed',
+                (snapshot) => { },
+                (error) => {
+                    console.error("Upload failed:", error);
+                    reject(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        setImageUrl(downloadURL);
+                        resolve(downloadURL);
+                    });
+                }
+            );
+        });
+    };
+    const handleGenerateImage = async () => {
+        const signatureContainer = document.getElementById('signature-container');
+        if (!signatureContainer) {
+            console.error('Signature container not found');
+            return;
+        }
+
+        // Ensure footer is fully visible before capturing the image
+        const footer = document.querySelector('.footer');
+        if (footer) {
+            footer.style.position = 'static';
+            footer.style.visibility = 'visible';
+        }
+
+        // Generate the image
+        html2canvas(signatureContainer, { useCORS: true }).then((canvas) => {
+            canvas.toBlob((blob) => {
+                // Download the image
+                const tempAnchor = document.createElement('a');
+                tempAnchor.href = URL.createObjectURL(blob);
+                tempAnchor.download = 'signature.png';
+                tempAnchor.click();
+                URL.revokeObjectURL(tempAnchor.href);
+                toast.success("Signature image downloaded!");
+
+                // Copy the image to the clipboard
+                const item = new ClipboardItem({ "image/png": blob });
+                navigator.clipboard.write([item]).then(() => {
+                    // toast.success("Signature image copied to clipboard!");
+                }).catch(err => {
+                    console.error('Failed to copy image to clipboard: ', err);
+                    // toast.error("Failed to copy image to clipboard.");
+                });
+
+                // Reset footer styles
+                if (footer) {
+                    footer.style.position = '';
+                    footer.style.visibility = '';
+                }
+            });
+        }).catch(error => {
+            console.error('Error generating image:', error);
+            toast.error("Failed to generate signature image.");
+        });
+    };
+
+
+
+
     return (
-        
+
         <div id="test" className="container">
             <h2 style={{
                 display: "flex",
@@ -545,25 +623,26 @@ const EmailSignature = (props) => {
                     <br />
                 </form>
                 <div className='test'>
-                    <CopyToClipboard text={generateSignature()} onCopy={() => { copyToClip("", imageUrl); toast.success("Signature copied to clipboard!"); }}>
-                        <button
-                            type="button"
-                            style={{
-                                backgroundColor: "#BF1E2E",
-                                border: "none",
-                                color: "white",
-                                padding: "15px 32px",
-                                textAlign: "center",
-                                fontSize: "20px",
-                                margin: "0 auto",
-                                display: "block",
-                                borderRadius: "5px",
-                                cursor: "pointer",
-                            }}
-                        >
-                            {'Copy to Clipboard'}
-                        </button>
-                    </CopyToClipboard>
+                    {/* <CopyToClipboard text={generateSignature()} onCopy={() => { copyToClip("", imageUrl);  }}> */}
+                    <button
+                        type="button" onClick={handleGenerateImage}
+                        style={{
+                            backgroundColor: "#BF1E2E",
+                            border: "none",
+                            color: "white",
+                            padding: "15px 32px",
+                            textAlign: "center",
+                            fontSize: "20px",
+                            margin: "0 auto",
+                            display: "block",
+                            borderRadius: "5px",
+                            cursor: "pointer",
+                        }}
+                    >
+                        {'Export Signature'}
+                    </button>
+
+                    {/* </CopyToClipboard> */}
                     <ToastContainer />
                 </div>
             </div>

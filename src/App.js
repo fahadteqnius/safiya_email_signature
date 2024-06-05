@@ -1,7 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
-import { auth } from './firebase/firebase';
+import { auth } from './firebaseConfig';
 import EmailSignature from './email_signature';
 
 function App() {
