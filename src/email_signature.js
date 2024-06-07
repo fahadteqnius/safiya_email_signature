@@ -315,7 +315,7 @@ const EmailSignature = (props) => {
                         </table>
                     </div>
                 </div>
-                <div className="footer" style="background-color: #BF1E2E; color: white; text-align: center; padding: 8px;"></div>
+                <div className="footer" style="background-color: #BF1E2E; color: white; margin-bottom: -1px; margin-right: -1px; text-align: center; padding: 8px;"></div>
             </div>
         </div>`;
 
