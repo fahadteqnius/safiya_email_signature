@@ -218,53 +218,49 @@ const EmailSignature = (props) => {
                             <tbody >
                                 <tr >
                                 ${image ? `
-                                <td style="padding-right:50px;padding-top:10px; padding-left:50px;" >
+                                <td style="padding-right:50px;padding-top:10px; padding-left:20px;" >
                                     <div style="width: 200px; height: 200px; overflow: hidden; border-radius: 15px;">
                                         <img src="${image ? URL.createObjectURL(image) : ''}" style="width: 100%;" />
                                     </div> 
                                 </td>`: ''}
                                     <td style="padding-bottom:60px; padding-top:50px;padding-right:20px; vertical-align:top;" valign="top">
-                                        <table style="width: 400px;">
+                                        <table style="padding-top:40px;">
                                             <tbody>
                                                 <tr>
-                                                    <td style="text-align: center; font-weight: bold; line-height: 50px; font-size: 50px; color: #030303; font-family: Montserrat;" id="empNameField">
+                                                    <td style="text-align: left; font-weight: bold; line-height: 50px; font-size: 50px; color: #030303; font-family: Montserrat;" min-width: 350px; id="empNameField">
                                                         <span style="border-bottom: 3px solid #B5222B; white-space: nowrap;">${name}</span>
                                                     </td>
                                                 </tr>
-                                          <tr>
-                                            <td style="text-align: center; padding-bottom:30px; padding-top:15px; line-height:15px; color:#D45F6D;">
-                                              <span id="empDesignationField" style="font-size:25px;font-family:Montserrat;font-weight:500">${jobTitle}</span>
-                                            </td>
-                                          </tr>
-                                          
-                                               
                                                 <tr>
-                                                    <td>
+                                                    <td style="text-align: center; padding-bottom:30px; padding-top:15px; line-height:15px; color:#D45F6D;">
+                                                        <span id="empDesignationField" style="font-size:25px;font-family:Montserrat;font-weight:500; white-space: nowrap; ">${jobTitle}</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style = "padding-bottom: 6px;white-space: nowrap;">
                                                         <span style="font-weight:600;">
                                                             <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/q5JV658/whatsapp.png">
                                                         </span>
                                                         &nbsp;
-                                                        <span id="empWhatsappField" style="vertical-align: 4px;fontFamily: 'Poppins, sans-serif';" class="v-align-offset">${whatsapp}</span>
+                                                        <span id="empWhatsappField"  class="v-align-offset">${whatsapp}</span>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="line-height:0px;">
+                                                    <td style="line-height:0px;white-space: nowrap;">
                                                         <span style="font-weight:600;">
                                                             <img class="signature-icon" style="color:#B5222B;width: 16px; height: 16px;" src="https://i.ibb.co/3sRHm5Y/smartphone-1.png">
                                                         </span>
                                                         &nbsp;
-                                                        <span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${phone}</span>
+                                                        <span id="empMobileField"  class="v-align-offset">${phone}</span>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>
-                                                        <div style='padding-bottom:2px;font-size:14px;'>
+                                                    <td style="white-space: nowrap;">
                                                             <span style="font-weight:600;color:#e70312">
                                                                 <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/d54nnvM/email-1.png">
                                                             </span>
                                                             &nbsp;
-                                                            <span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${email}</span>
-                                                        </div>
+                                                            <span id="empMobileField"  class="v-align-offset">${email}</span>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -275,7 +271,7 @@ const EmailSignature = (props) => {
                                         <hr style="width: 2px;border: 0; height: 165px; background-color: #D45F6D;">
                                     </td>
                                     <td>
-                                        <table style='width:500px;padding-top:35px;padding-left:50px;padding-right:0px;line-height:1.4;font-size:80%;color:rgb(0,0,1)' cellspacing="0" cellpadding="0" border="0">
+                                        <table style='width:500px;padding-top:35px;padding-left:20px;padding-right:0px;line-height:1.4;font-size:80%;color:rgb(0,0,1)' cellspacing="0" cellpadding="0" border="0">
                                             <tbody>
                                                 <tr>
                                                     <td>
