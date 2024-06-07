@@ -218,11 +218,11 @@ const EmailSignature = (props) => {
                             <tbody >
                                 <tr >
                                 ${image ? `
-                                <td style="padding-right:50px;padding-top:10px; padding-left:20px;" >
+                                <td style="padding-right:25px;padding-top:10px; padding-left:20px;" >
                                     <div style="width: 200px; height: 200px; overflow: hidden; border-radius: 15px;">
                                         <img src="${image ? URL.createObjectURL(image) : ''}" style="width: 100%;" />
                                     </div> 
-                                </td>`: ''}
+                                </td>`: '<td style="padding-right:20px;padding-top:10px;" >'}
                                     <td style="padding-bottom:60px; padding-top:10px;padding-right:20px; vertical-align:top;" valign="top">
                                         <table style="padding-top:40px;">
                                             <tbody>
@@ -271,7 +271,7 @@ const EmailSignature = (props) => {
                                         <hr style="width: 2px;border: 0; height: 165px; background-color: #D45F6D;">
                                     </td>
                                     <td>
-                                        <table style='padding-top:10px;padding-left:20px;padding-right:0px;line-height:1.4;font-size:80%;color:rgb(0,0,1)' cellspacing="0" cellpadding="0" border="0">
+                                        <table style='padding-top:10px;padding-left:20px;padding-right:20px;line-height:1.4;font-size:80%;color:rgb(0,0,1)' cellspacing="0" cellpadding="0" border="0">
                                             <tbody>
                                                 <tr>
                                                     <td>
