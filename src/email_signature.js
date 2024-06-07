@@ -223,11 +223,11 @@ const EmailSignature = (props) => {
                                         <img src="${image ? URL.createObjectURL(image) : ''}" style="width: 100%;" />
                                     </div> 
                                 </td>`: ''}
-                                    <td style="padding-bottom:60px; padding-top:50px;padding-right:20px; vertical-align:top;" valign="top">
+                                    <td style="padding-bottom:60px; padding-top:10px;padding-right:20px; vertical-align:top;" valign="top">
                                         <table style="padding-top:40px;">
                                             <tbody>
                                                 <tr>
-                                                    <td style="text-align: left; font-weight: bold; line-height: 50px; font-size: 50px; color: #030303; font-family: Montserrat;" min-width: 350px; id="empNameField">
+                                                    <td style="text-align: center; font-weight: bold; line-height: 50px; font-size: 50px; color: #030303; font-family: Montserrat;" min-width: 350px; id="empNameField">
                                                         <span style="border-bottom: 3px solid #B5222B; white-space: nowrap;">${name}</span>
                                                     </td>
                                                 </tr>
@@ -267,17 +267,17 @@ const EmailSignature = (props) => {
                                         </table>
                                     </td>
                                     
-                                    <td style="text-align: center;padding-top:40px;">
+                                    <td style="text-align: center;padding-top:0px;">
                                         <hr style="width: 2px;border: 0; height: 165px; background-color: #D45F6D;">
                                     </td>
                                     <td>
-                                        <table style='width:500px;padding-top:35px;padding-left:20px;padding-right:0px;line-height:1.4;font-size:80%;color:rgb(0,0,1)' cellspacing="0" cellpadding="0" border="0">
+                                        <table style='padding-top:10px;padding-left:20px;padding-right:0px;line-height:1.4;font-size:80%;color:rgb(0,0,1)' cellspacing="0" cellpadding="0" border="0">
                                             <tbody>
                                                 <tr>
                                                     <td>
                                                         <div style='padding-bottom:2px;font-size:14px;line-height:35px;'>
-                                                            <span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/LR0sXtB/call.png"></span>&nbsp;<span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${officeLandline}(24/7)</span>
-                                                            &nbsp;<span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/3sRHm5Y/smartphone-1.png"></span>&nbsp;<span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${officePhone}</span>
+                                                            <span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/LR0sXtB/call.png"></span>&nbsp;<span id="empMobileField"  class="v-align-offset">${officeLandline}(24/7)</span>
+                                                            &nbsp;<span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/3sRHm5Y/smartphone-1.png"></span>&nbsp;<span id="empMobileField"  class="v-align-offset">${officePhone}</span>
                                                         </div>
                                                     </td>
                                                 </tr>
