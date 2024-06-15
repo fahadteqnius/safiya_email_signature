@@ -72,145 +72,9 @@ const EmailSignature = (props) => {
     };
 
 
-    const copyToClip = async () => {
-        try {
-            const uploadedImageUrl = await handleImageUpload();
-            let signatureText = `
-        <head>
-        <style></style>
-        </head>
-        <body>
-        <div  class="col-7" style="font-family: Verdana;>
-            <div class="card" align:center;>
-                <div class="card-body">
-                    <div id="signature-container">
-                        <table width="600" cellspacing="0" ; cellpadding="0" border="0">
-                            <tbody>
-                                <tr >
-                                ${uploadedImageUrl ? `
-                                    <td style="padding-right:50px;padding-top:10px;" >
-                                    <div style="width: 200px; height: 200px; overflow: hidden; border-radius: 15px;">
-                                        <img src="${uploadedImageUrl}" style="width: 100%;" />
-                                    </div>
-                                    </td>`: ''}
-                                    <td style="padding-bottom:60px; padding-top:100px;padding-right:20px; vertical-align:top;" valign="top">
-                                        <table style="width: 400px;">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="text-align: center; font-weight: bold; line-height: 50px; font-size: 50px; color: #030303; font-family: Montserrat;" id="empNameField">
-                                                        <span style="border-bottom: 3px solid #B5222B; white-space: nowrap;">${name}</span>
-                                                    </td>
-                                                </tr>
-                                          <tr>
-                                            <td style="text-align: center; padding-bottom:30px; padding-top:15px; line-height:15px; color:#B5222B;">
-                                              <span id="empDesignationField" style="font-size:25px;font-family:Montserrat;font-weight:500">${jobTitle}</span>
-                                            </td>
-                                          </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span style="font-weight:600;">
-                                                            <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/q5JV658/whatsapp.png">
-                                                        </span>
-                                                        &nbsp;
-                                                        <span id="empWhatsappField" style="vertical-align: 4px;" class="v-align-offset">${whatsapp}</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="line-height:0px;"    >
-                                                        <span style="font-weight:600;">
-                                                            <img class="signature-icon" style="color:#B5222B;width: 16px; height: 16px;" src="https://i.ibb.co/3sRHm5Y/smartphone-1.png">
-                                                        </span>
-                                                        &nbsp;
-                                                        <span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${phone}</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div style='padding-bottom:2px;font-size:14px;'>
-                                                            <span style="font-weight:600;color:#e70312">
-                                                                <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/d54nnvM/email-1.png">
-                                                            </span>
-                                                            &nbsp;
-                                                            <a id="empMailField" style="color:black;vertical-align: 4px;" class="v-align-offset" href="mailto:${email}" target="_blank">${email}</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                    <td style="text-align: center;padding-top:40px;">
-                                        <hr style="width: 2px;border: 0; height: 165px; background-color: #D45F6D;">
-                                    </td>
-                                    <td>
-                                        <table style='width:500px;padding-top:35px;padding-left:50px;padding-right:0px;line-height:1.4;font-size:80%;color:rgb(0,0,1)' cellspacing="0" cellpadding="0" border="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div style='padding-bottom:2px;font-size:14px;line-height:35px;'>
-                                                            <span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/LR0sXtB/call.png"></span>&nbsp;<span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${officeLandline}(24/7)</span>
-                                                            &nbsp;<span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/3sRHm5Y/smartphone-1.png"></span>&nbsp;<span id="empMobileField" style="vertical-align: 4px;" class="v-align-offset">${officePhone}</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>    
-                                                        <div style='padding-bottom:2px;font-size:14px;height:40px;'>
-                                                            <span style="font-weight:600;color:#e70312"></span>
-                                                            <span style="vertical-align: 0px;" class="v-align-offset" id="compAddressField">${company}</span><br />
-                                                            <span style="vertical-align: 0px;" class="v-align-offset" id="compAddressField">${line1}</span><br />
-                                                            <span style="vertical-align: 0px;" class="v-align-offset" id="compAddressField">${line2}</span><br />
-                                                            <span style="vertical-align: 0px;" class="v-align-offset" id="compAddressField">${line3}</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                    <div style='padding-top:40px;font-size:14px;'><span style="font-weight:600;color:#e70312"></span><span style="vertical-align: 4px;" class="v-align-offset" id="compAddressField">www.safiya.travel</span></div>
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding:10px 0px 0px">
-                                                        <div style="font-weight: bold;font-size:14px;">
-                                                        </div>
-                                                        <a href="https://b2b.safiyago.com" target="_blank"  style="display: block;  text-decoration: none;"> 
-                                                        <img id="compLogoField" alt="Safiya Logo" style="width:350px;border-radius:0%;" src="https://i.ibb.co/N6GGvGc/safiya-logo.png" width="100" class="CToWUd" />
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>     
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="footer" style="background-color: #BF1E2E; color: white; text-align: center; padding: 8px; color:#BF1E2E ;"></div>
-            </div>
-        </div>
-        </body>`;
-            signatureText = signatureText.replace(/(\r\n|\n|\r)/gm, "").replace(/(>\s+<)/g, '><');
-
-            function listener(e) {
-                e.clipboardData.setData("text/html", signatureText);
-                e.clipboardData.setData("text/plain", signatureText);
-                e.preventDefault();
-            }
-
-            document.addEventListener("copy", listener);
-            document.execCommand("copy");
-            document.removeEventListener("copy", listener);
-            // toast.success("Signature copied to clipboard!");
-        } catch (error) {
-            console.error("Error copying to clipboard:", error);
-            // toast.error("Failed to copy signature. Please try again.");
-        }
-    };
-
-
     const generateSignature = () => {
         let signatureText = `
-        <div class="col-7" style="font-family: Verdana;">
+        <div class="col-7" style="font-family: Poppins;">
             <div id="signature-container" class="card" align:center;  >
                 <div class="card-body">
                     <div >
@@ -219,27 +83,27 @@ const EmailSignature = (props) => {
                                 <tr >
                                 ${image ? `
                                 <td style="padding-right:25px;padding-top:10px; padding-left:20px;" >
-                                    <div style="width: 200px; height: 200px; overflow: hidden; border-radius: 15px;">
-                                        <img src="${image ? URL.createObjectURL(image) : ''}" style="width: 100%;" />
+                                    <div class="image-container"; style="width: 200px; height: 200px; overflow: hidden; border-radius: 15px;">
+                                        <img src="${image ? URL.createObjectURL(image) : ''}" style="width: 100%;" class="center-cropped"; />
                                     </div> 
                                 </td>`: '<td style="padding-right:20px;padding-top:10px;" >'}
                                     <td style="padding-bottom:60px; padding-top:10px;padding-right:20px; vertical-align:top;" valign="top">
                                         <table style="padding-top:40px;">
                                             <tbody>
                                                 <tr>
-                                                    <td style="text-align: center; font-weight: bold; line-height: 50px; font-size: 50px; color: #030303; font-family: Montserrat;" min-width: 350px; id="empNameField">
+                                                    <td style="text-align: center; font-weight: bold; line-height: 50px; font-size: 50px; color: #C62035; font-family: Montserrat;" min-width: 350px; id="empNameField">
                                                         <span style="border-bottom: 3px solid #B5222B; white-space: nowrap;">${name}</span>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="text-align: center; padding-bottom:30px; padding-top:15px; line-height:15px; color:#D45F6D;">
-                                                        <span id="empDesignationField" style="font-size:25px;font-family:Montserrat;font-weight:500; white-space: nowrap; ">${jobTitle}</span>
+                                                    <td style="text-align: center; padding-bottom:30px; padding-top:15px; line-height:15px; color:#C62035;">
+                                                        <span id="empDesignationField" style="font-size:25px; font-family:Montserrat; font-weight:500; white-space: nowrap; ">${jobTitle}</span>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td style = "padding-bottom: 6px;white-space: nowrap;">
                                                         <span style="font-weight:600;">
-                                                            <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/q5JV658/whatsapp.png">
+                                                            <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/k4XswKh/pngegg.png">
                                                         </span>
                                                         &nbsp;
                                                         <span id="empWhatsappField"  class="v-align-offset">${whatsapp}</span>
@@ -248,7 +112,7 @@ const EmailSignature = (props) => {
                                                 <tr>
                                                     <td style="line-height:0px;white-space: nowrap;">
                                                         <span style="font-weight:600;">
-                                                            <img class="signature-icon" style="color:#B5222B;width: 16px; height: 16px;" src="https://i.ibb.co/3sRHm5Y/smartphone-1.png">
+                                                            <img class="signature-icon" style="color:#B5222B;width: 16px; height: 16px;" src="https://i.ibb.co/w0smpPr/smartphone.png">
                                                         </span>
                                                         &nbsp;
                                                         <span id="empMobileField"  class="v-align-offset">${phone}</span>
@@ -257,7 +121,7 @@ const EmailSignature = (props) => {
                                                 <tr>
                                                     <td style="white-space: nowrap;">
                                                             <span style="font-weight:600;color:#e70312">
-                                                                <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/d54nnvM/email-1.png">
+                                                                <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/X8ScDq6/vecteezy-gmail-png-icon-16716465.png   ">
                                                             </span>
                                                             &nbsp;
                                                             <span id="empMobileField"  class="v-align-offset">${email}</span>
@@ -277,7 +141,7 @@ const EmailSignature = (props) => {
                                                     <td>
                                                         <div style='padding-bottom:2px;font-size:14px;line-height:35px;'>
                                                             <span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/LR0sXtB/call.png"></span>&nbsp;<span id="empMobileField"  class="v-align-offset">${officeLandline}(24/7)</span>
-                                                            &nbsp;<span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/3sRHm5Y/smartphone-1.png"></span>&nbsp;<span id="empMobileField"  class="v-align-offset">${officePhone}</span>
+                                                            
                                                         </div>
                                                     </td>
                                                 </tr>
