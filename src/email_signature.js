@@ -5,7 +5,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import Resizer from 'react-image-file-resizer';
 import { storage } from './firebaseConfig';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas'; 
+import Cropper from './Cropper';
+import Model from './model';
 
 const EmailSignature = (props) => {
 
@@ -23,6 +25,8 @@ const EmailSignature = (props) => {
     const [officePhone, setOfficePhone] = useState('+91 8129778244');
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
+    const [imageCropped, setImageCropped] = useState(true);
+    const [croppedImageUrl, setCroppedImageUrl] = useState('');
 
 
     const handleInputChange = (event) => {
@@ -72,6 +76,8 @@ const EmailSignature = (props) => {
     };
 
 
+
+
     const generateSignature = () => {
         let signatureText = `
         <div class="col-7" style="font-family: Poppins;">
@@ -81,10 +87,10 @@ const EmailSignature = (props) => {
                         <table width="600" cellspacing="0" ; cellpadding="0" border="0">
                             <tbody >
                                 <tr >
-                                ${image ? `
+                                ${croppedImageUrl ? `
                                 <td style="padding-right:25px;padding-top:10px; padding-left:20px;" >
                                     <div class="image-container"; style="width: 200px; height: 200px; overflow: hidden; border-radius: 15px;">
-                                        <img src="${image ? URL.createObjectURL(image) : ''}" style="width: 100%;" class="center-cropped"; />
+                                        <img src="${croppedImageUrl}" style="width: 100%;" class="center-cropped"; />
                                     </div> 
                                 </td>`: '<td style="padding-right:20px;padding-top:10px;" >'}
                                     <td style="padding-bottom:60px; padding-top:10px;padding-right:20px; vertical-align:top;" valign="top">
@@ -186,27 +192,49 @@ const EmailSignature = (props) => {
         return signatureText;
     };
 
-    const handlePhotoChange = (event) => {
+    const resizeFile = (file) =>
+        new Promise((resolve) => {
+            Resizer.imageFileResizer(
+                file,
+                1200,
+                50000,
+                "JPEG",
+                100,
+                0,
+                (uri) => {
+                    resolve(uri);
+                },
+                "file"
+            );
+        });
+
+    const handlePhotoChange = async (event) => {
         const selectedFile = event.target.files[0];
         setImage(selectedFile);
         const reader = new FileReader();
+        const file = event.target.files[0];
         reader.onload = (event) => {
             setImageUrl(event.target.result);
         };
         reader.readAsDataURL(selectedFile);
-        Resizer.imageFileResizer(
-            selectedFile,
-            200,
-            200,
-            'JPEG',
-            100,
-            0,
-            (uri) => {
-                setImageUrl(uri);
-                setImage(selectedFile);
-            },
-            'base64'
-        );
+        const img = await resizeFile(file);
+        console.log(img);
+        setImageUrl(URL.createObjectURL(img));
+        setCroppedImageUrl(URL.createObjectURL(img));
+        setImageCropped(false);
+        // Resizer.imageFileResizer(
+        //     selectedFile,
+        //     200,
+        //     200,
+        //     'JPEG',
+        //     100,
+        //     0,
+        //     (uri) => {
+        //         setImageUrl(uri);
+        //         setImage(selectedFile);
+        //     },
+        //     'base64'
+        // );
     };
     const handleImageUpload = async () => {
         if (!image) return '';
@@ -273,6 +301,18 @@ const EmailSignature = (props) => {
             console.error('Error generating image:', error);
             toast.error("Failed to generate signature image.");
         });
+    };
+
+    const updateCroppedImageUrl = (url) => {
+        let event = {
+            target: {
+                files: [image],
+            },
+        };
+        // handleImageChange(event);
+
+        setCroppedImageUrl(url);
+        setImageCropped(true);
     };
 
 
@@ -469,6 +509,7 @@ const EmailSignature = (props) => {
                             <div class="form-group">
                                 <input
                                     type="file"
+                                    accept="image/*"
                                     id="photo"
                                     name="photo"
                                     onChange={handlePhotoChange}
@@ -482,6 +523,15 @@ const EmailSignature = (props) => {
 
                     <br />
                 </form>
+
+                {!imageCropped && (
+                    <Cropper
+                        imageUrl={imageUrl}
+                        selectedImage={image}
+                        updateCroppedImageUrl={updateCroppedImageUrl}
+                    />
+                )}
+
                 <div className='test'>
                     {/* <CopyToClipboard text={generateSignature()} onCopy={() => { copyToClip("", imageUrl);  }}> */}
                     <button
