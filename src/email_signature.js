@@ -7,7 +7,8 @@ import { storage } from './firebaseConfig';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import html2canvas from 'html2canvas';
 import Cropper from './Cropper';
-import Modal from 'react-modal'; 
+import Modal from 'react-modal';
+import safiyaLogo from "./assets/safiya-logo.png";
 
 
 const EmailSignature = (props) => {
@@ -172,11 +173,17 @@ const EmailSignature = (props) => {
                                                 
                                                 <tr>
                                                 
-                                                    <td style="padding:10px 0px 0px">
+                                                     <td style="padding:10px 0px 0px">
                                                         <div style="font-weight: bold;font-size:14px;">
                                                         </div>
-                                                        <a href="https://b2b.safiyago.com" target="_blank"  style="display: block;  text-decoration: none;"> 
-                                                        <img id="compLogoField" alt="Safiya Logo" style="width:350px;border-radius:0%;" src="https://i.ibb.co/N6GGvGc/safiya-logo.png" width="100" class="CToWUd" />
+                                                        <img
+                                                            id="compLogoField"
+                                                            alt="Safiya Logo"
+                                                            style="width:350px;border-radius:0%;"
+                                                            src=${safiyaLogo}
+                                                            width="100"
+                                                            className="CToWUd"
+                                                        />
                                                     </td>
                                                 </tr>
                                             </tbody>
