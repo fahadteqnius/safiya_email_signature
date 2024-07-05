@@ -5,9 +5,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import Resizer from 'react-image-file-resizer';
 import { storage } from './firebaseConfig';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import html2canvas from 'html2canvas'; 
+import html2canvas from 'html2canvas';
 import Cropper from './Cropper';
-import Model from './model';
+import Modal from 'react-modal'; 
+
 
 const EmailSignature = (props) => {
 
@@ -27,6 +28,7 @@ const EmailSignature = (props) => {
     const [imageUrl, setImageUrl] = useState(null);
     const [imageCropped, setImageCropped] = useState(true);
     const [croppedImageUrl, setCroppedImageUrl] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
 
     const handleInputChange = (event) => {
@@ -196,8 +198,8 @@ const EmailSignature = (props) => {
         new Promise((resolve) => {
             Resizer.imageFileResizer(
                 file,
-                1200,
-                50000,
+                1500,
+                1500,
                 "JPEG",
                 100,
                 0,
@@ -222,10 +224,11 @@ const EmailSignature = (props) => {
         setImageUrl(URL.createObjectURL(img));
         setCroppedImageUrl(URL.createObjectURL(img));
         setImageCropped(false);
+        setIsModalOpen(true);
         // Resizer.imageFileResizer(
         //     selectedFile,
-        //     200,
-        //     200,
+        //     1000,
+        //     1000,
         //     'JPEG',
         //     100,
         //     0,
@@ -304,15 +307,16 @@ const EmailSignature = (props) => {
     };
 
     const updateCroppedImageUrl = (url) => {
-        let event = {
-            target: {
-                files: [image],
-            },
-        };
+        // let event = {
+        //     target: {
+        //         files: [image],
+        //     },
+        // };
         // handleImageChange(event);
 
         setCroppedImageUrl(url);
         setImageCropped(true);
+        setIsModalOpen(false);
     };
 
 
@@ -524,13 +528,13 @@ const EmailSignature = (props) => {
                     <br />
                 </form>
 
-                {!imageCropped && (
+                {/* {!imageCropped && (
                     <Cropper
                         imageUrl={imageUrl}
                         selectedImage={image}
                         updateCroppedImageUrl={updateCroppedImageUrl}
                     />
-                )}
+                )} */}
 
                 <div className='test'>
                     {/* <CopyToClipboard text={generateSignature()} onCopy={() => { copyToClip("", imageUrl);  }}> */}
@@ -556,6 +560,31 @@ const EmailSignature = (props) => {
                     <ToastContainer />
                 </div>
             </div>
+            <Modal
+                isOpen={isModalOpen}
+                onRequestClose={() => setIsModalOpen(false)}
+                contentLabel="Image Cropper"
+                style={{
+                    content: {
+                        top: '50%',
+                        left: '50%',
+                        right: 'auto',
+                        bottom: 'auto',
+                        marginRight: '-50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: '90%',
+                        height: '90%',
+                    },
+                }}
+            >
+                <h2>Crop Your Image</h2>
+                <Cropper
+                    imageUrl={imageUrl}
+                    selectedImage={image}
+                    updateCroppedImageUrl={updateCroppedImageUrl}
+                />
+                <button onClick={() => setIsModalOpen(false)}>Close</button>
+            </Modal>
             <div dangerouslySetInnerHTML={{ __html: generateSignature() }}></div>
         </div>
     );

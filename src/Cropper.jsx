@@ -3,8 +3,9 @@ import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
 function Cropper(props) {
-  const [crop, setCrop] = useState();
-
+  const defaultCrop = { aspect: 1, width: 200, height: 200 };
+  const [crop, setCrop] = useState(defaultCrop);
+  const [aspectRatio, setAspectRatio] = useState(1 / 1);
   const [CPImageUrl, setCPImageUrl] = useState();
 
   const cropFn = (c) => {
@@ -54,9 +55,17 @@ function Cropper(props) {
     props.updateCroppedImageUrl(CPImageUrl);
   };
 
+  const handleAspectRatioChange = (e) => {
+    setAspectRatio(parseFloat(e.target.value));
+  };
+
+
   return (
     <div style={{ margin: "auto" }}>
-      <ReactCrop crop={crop} onChange={(c) => cropFn(c)}>
+      <ReactCrop
+        crop={crop}
+        aspect={aspectRatio}
+        onChange={(c) => cropFn(c)}>
         <img src={props.imageUrl} alt="cropped" />
       </ReactCrop>
       <br />
