@@ -111,41 +111,42 @@ const EmailSignature = (props) => {
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style = " padding-bottom: 8px;white-space: nowrap;">
-                                                        <span style="font-weight:600;">
-                                                            <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/k4XswKh/pngegg.png">
+                                                    <td style="padding-bottom: 8px; white-space: nowrap;">
+                                                        <span style="font-weight: 600;">
+                                                            <img class="signature-icon" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;" src="https://i.ibb.co/k4XswKh/pngegg.png">
                                                         </span>
                                                         &nbsp;
-                                                        <span id="empWhatsappField"  class="v-align-offset">${whatsapp}</span>
+                                                        <span id="empWhatsappField" class="v-align-offset" style="display: inline-block; vertical-align: middle;">${whatsapp}</span>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="line-height:0px;white-space: nowrap; padding-bottom: 10px;">
-                                                        <span style="font-weight:600;">
-                                                            <img class="signature-icon" style="color:#B5222B;width: 16px; height: 16px;" src="https://i.ibb.co/w0smpPr/smartphone.png">
+                                                    <td style="line-height: 0px; white-space: nowrap; padding-bottom: 10px;">
+                                                        <span style="font-weight: 600;">
+                                                            <img class="signature-icon" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;" src="https://i.ibb.co/w0smpPr/smartphone.png">
                                                         </span>
                                                         &nbsp;
-                                                        <span id="empMobileField"  class="v-align-offset">${phone}</span>
+                                                        <span id="empMobileField" class="v-align-offset" style="display: inline-block; vertical-align: middle;">${phone}</span>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="line-height:0px;white-space: nowrap; padding-left: 3px; margin: 0;padding-bottom: 10px; ">
-                                                            <span style="font-weight:600;color:#e70312">
-                                                                <img class="signature-icon" style="width: 12px; height: 12px;" src=${telephone}>
-                                                            </span>
-                                                            &nbsp;
-                                                            <span id="empMobileField"  class="v-align-offset">${officeLandline}(24/7)</span>
+                                                    <td style="line-height: 0px; white-space: nowrap; padding-left: 4px; margin: 0; padding-bottom: 10px;">
+                                                        <span style="font-weight: 600; color: #e70312;">
+                                                            <img class="signature-icon" style="width: 12px; height: 12px; display: inline-block; vertical-align: middle;" src="${telephone}">
+                                                        </span>
+                                                        &nbsp;
+                                                        <span id="empMobileField" class="v-align-offset" style="display: inline-block; vertical-align: middle;">${officeLandline}(24/7)</span>
                                                     </td>
                                                 </tr>
-                                                <tr "margin: 0; padding: 0;">
-                                                    <td style="line-height:0px;white-space: nowrap; margin: 0; padding: 0;">
-                                                            <span style="font-weight:600;color:#e70312">
-                                                                <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/X8ScDq6/vecteezy-gmail-png-icon-16716465.png   ">
-                                                            </span>
-                                                            &nbsp;
-                                                            <span id="empMobileField"  class="v-align-offset">${email}</span>
+                                                <tr style="margin: 0; padding: 0;">
+                                                    <td style="line-height: 0px; white-space: nowrap; margin: 0; padding: 0;">
+                                                        <span style="font-weight: 600; color: #e70312;">
+                                                            <img class="signature-icon" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;" src="https://i.ibb.co/X8ScDq6/vecteezy-gmail-png-icon-16716465.png">
+                                                        </span>
+                                                        &nbsp;
+                                                        <span id="empMobileField" class="v-align-offset" style="display: inline-block; vertical-align: middle;">${email}</span>
                                                     </td>
                                                 </tr>
+
                                                 
                                             </tbody>
                                         </table>
