@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Resizer from 'react-image-file-resizer';
-import { storage } from './firebaseConfig';
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import html2canvas from 'html2canvas';
 import Cropper from './Cropper';
 import Modal from 'react-modal';
 import safiyaLogo from "./assets/safiya-logo.png";
+import telephone from "./assets/landphone.png";
+import website from "./assets/website.png";
+
+
 
 
 const EmailSignature = (props) => {
@@ -97,7 +98,7 @@ const EmailSignature = (props) => {
                                     </div> 
                                 </td>`: '<td style="padding-right:20px;padding-top:10px;" >'}
                                     <td style="padding-bottom:60px; padding-top:10px;padding-right:20px; vertical-align:top;" valign="top">
-                                        <table style="padding-top:40px;">
+                                        <table style="padding-top:40px; border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
                                                     <td style="text-align: center; font-weight: bold; line-height: 50px; font-size: 50px; color: #C62035; font-family: Montserrat;" min-width: 350px; id="empNameField">
@@ -110,7 +111,7 @@ const EmailSignature = (props) => {
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style = "padding-bottom: 6px;white-space: nowrap;">
+                                                    <td style = " padding-bottom: 8px;white-space: nowrap;">
                                                         <span style="font-weight:600;">
                                                             <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/k4XswKh/pngegg.png">
                                                         </span>
@@ -119,7 +120,7 @@ const EmailSignature = (props) => {
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="line-height:0px;white-space: nowrap;">
+                                                    <td style="line-height:0px;white-space: nowrap; padding-bottom: 10px;">
                                                         <span style="font-weight:600;">
                                                             <img class="signature-icon" style="color:#B5222B;width: 16px; height: 16px;" src="https://i.ibb.co/w0smpPr/smartphone.png">
                                                         </span>
@@ -128,7 +129,16 @@ const EmailSignature = (props) => {
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="white-space: nowrap;">
+                                                    <td style="line-height:0px;white-space: nowrap; padding-left: 3px; margin: 0;padding-bottom: 10px; ">
+                                                            <span style="font-weight:600;color:#e70312">
+                                                                <img class="signature-icon" style="width: 12px; height: 12px;" src=${telephone}>
+                                                            </span>
+                                                            &nbsp;
+                                                            <span id="empMobileField"  class="v-align-offset">${officeLandline}(24/7)</span>
+                                                    </td>
+                                                </tr>
+                                                <tr "margin: 0; padding: 0;">
+                                                    <td style="line-height:0px;white-space: nowrap; margin: 0; padding: 0;">
                                                             <span style="font-weight:600;color:#e70312">
                                                                 <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/X8ScDq6/vecteezy-gmail-png-icon-16716465.png   ">
                                                             </span>
@@ -136,6 +146,7 @@ const EmailSignature = (props) => {
                                                             <span id="empMobileField"  class="v-align-offset">${email}</span>
                                                     </td>
                                                 </tr>
+                                                
                                             </tbody>
                                         </table>
                                     </td>
@@ -144,21 +155,13 @@ const EmailSignature = (props) => {
                                         <hr style="width: 2px;border: 0; height: 165px; background-color: #D45F6D;">
                                     </td>
                                     <td>
-                                        <table style='padding-top:10px;padding-left:20px;padding-right:20px;line-height:1.4;font-size:80%;color:rgb(0,0,1)' cellspacing="0" cellpadding="0" border="0">
+                                        <table style='padding-top:40px;padding-left:20px;padding-right:20px;line-height:1.4;font-size:80%;color:rgb(0,0,1)' cellspacing="0" cellpadding="0" border="0">
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div style='padding-bottom:2px;font-size:14px;line-height:35px;'>
-                                                            <span style="font-weight:600;color:#e70312">  <img class="signature-icon" style="width: 16px; height: 16px;" src="https://i.ibb.co/LR0sXtB/call.png"></span>&nbsp;<span id="empMobileField"  class="v-align-offset">${officeLandline}(24/7)</span>
-                                                            
-                                                        </div>
-                                                    </td>
-                                                </tr>
                                                 <tr>
                                                     <td>
                                                         <div style='padding-bottom:2px;font-size:14px;height:40px;'>
                                                             <span style="font-weight:600;color:#e70312"></span>
-                                                            <span style="vertical-align: 0px; class="v-align-offset" id="compAddressField">${company}</span><br />
+                                                            <span style="vertical-align: 0px;font-weight: 500; font-size: 18px; color: #C62035; font class="v-align-offset" id="compAddressField">${company}</span><br />
                                                             <span style="vertical-align: 0px;" class="v-align-offset" id="compAddressField">${line1}</span><br />
                                                             <span style="vertical-align: 0px;" class="v-align-offset" id="compAddressField">${line2}</span><br />
                                                             <span style="vertical-align: 0px;" class="v-align-offset" id="compAddressField">${line3}</span>
@@ -167,12 +170,19 @@ const EmailSignature = (props) => {
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <div style='padding-top:40px;font-size:14px;'><span style="font-weight:600;color:#e70312"></span><span style="vertical-align: 4px;" class="v-align-offset" id="compAddressField">www.safiya.travel</span></div>
+                                                        <div style="padding-top:50px;font-size:14px;">
+                                                            <span style="font-weight:600;color:#e70312;">
+                                                                <img class="signature-icon" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;" src="${website}">
+                                                            </span>
+                                                            &nbsp;
+                                                            <span style="display: inline-block; vertical-align: middle;" class="v-align-offset" id="compAddressField">
+                                                                www.safiya.travel
+                                                            </span>
+                                                        </div>
                                                     </td>
                                                 </tr>
-                                                
+
                                                 <tr>
-                                                
                                                      <td style="padding:10px 0px 0px">
                                                         <div style="font-weight: bold;font-size:14px;">
                                                         </div>
@@ -232,40 +242,6 @@ const EmailSignature = (props) => {
         setCroppedImageUrl(URL.createObjectURL(img));
         setImageCropped(false);
         setIsModalOpen(true);
-        // Resizer.imageFileResizer(
-        //     selectedFile,
-        //     1000,
-        //     1000,
-        //     'JPEG',
-        //     100,
-        //     0,
-        //     (uri) => {
-        //         setImageUrl(uri);
-        //         setImage(selectedFile);
-        //     },
-        //     'base64'
-        // );
-    };
-    const handleImageUpload = async () => {
-        if (!image) return '';
-        const storageRef = ref(storage, `images/${image.name}`);
-        const uploadTask = uploadBytesResumable(storageRef, image);
-
-        return new Promise((resolve, reject) => {
-            uploadTask.on('state_changed',
-                (snapshot) => { },
-                (error) => {
-                    console.error("Upload failed:", error);
-                    reject(error);
-                },
-                () => {
-                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                        setImageUrl(downloadURL);
-                        resolve(downloadURL);
-                    });
-                }
-            );
-        });
     };
     const handleGenerateImage = async () => {
         const signatureContainer = document.getElementById('signature-container');
@@ -314,12 +290,6 @@ const EmailSignature = (props) => {
     };
 
     const updateCroppedImageUrl = (url) => {
-        // let event = {
-        //     target: {
-        //         files: [image],
-        //     },
-        // };
-        // handleImageChange(event);
 
         setCroppedImageUrl(url);
         setImageCropped(true);
@@ -535,13 +505,6 @@ const EmailSignature = (props) => {
                     <br />
                 </form>
 
-                {/* {!imageCropped && (
-                    <Cropper
-                        imageUrl={imageUrl}
-                        selectedImage={image}
-                        updateCroppedImageUrl={updateCroppedImageUrl}
-                    />
-                )} */}
 
                 <div className='test'>
                     {/* <CopyToClipboard text={generateSignature()} onCopy={() => { copyToClip("", imageUrl);  }}> */}
