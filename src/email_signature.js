@@ -8,6 +8,7 @@ import Modal from 'react-modal';
 import safiyaLogo from "./assets/safiya-logo.png";
 import telephone from "./assets/landphone.png";
 import website from "./assets/website.png";
+import tollfreelogo from "./assets/tollfree-logo.png";
 
 
 
@@ -24,8 +25,9 @@ const EmailSignature = (props) => {
     const [line1, setLine1] = useState('39/4071B, Safiya Tower');
     const [line2, setLine2] = useState('Near Ravipuram Temple, Ravipuram Rd.');
     const [line3, setLine3] = useState('Kochi, Ernakulam,Kerala,India, 682016');
-    const [officeLandline, setOfficeLandline] = useState('0484 4270700');
+    const [officeLandline, setOfficeLandline] = useState('0484 4270700 (24/7)');
     const [officePhone, setOfficePhone] = useState('+91 8129778244');
+    const [tollfree, setTollfree] = useState('1800 266 0909');
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
     const [imageCropped, setImageCropped] = useState(true);
@@ -60,6 +62,9 @@ const EmailSignature = (props) => {
                 break;
             case 'officephone':
                 setOfficePhone(value);
+                break;
+            case 'tollfree':
+                setTollfree(value);
                 break;
             case 'line1':
                 setLine1(value);
@@ -134,7 +139,7 @@ const EmailSignature = (props) => {
                                                             <img class="signature-icon" style="width: 12px; height: 12px; display: inline-block; vertical-align: middle;" src="${telephone}">
                                                         </span>
                                                         &nbsp;
-                                                        <span id="empMobileField" class="v-align-offset" style="display: inline-block; vertical-align: middle;">${officeLandline}(24/7)</span>
+                                                        <span id="empMobileField" class="v-align-offset" style="display: inline-block; vertical-align: middle;">${officeLandline}</span>
                                                     </td>
                                                 </tr>
                                                 <tr style="margin: 0; padding: 0;">
@@ -182,9 +187,24 @@ const EmailSignature = (props) => {
                                                         </div>
                                                     </td>
                                                 </tr>
-
                                                 <tr>
-                                                     <td style="padding:25px 0px 0px">
+                                                    <td>
+                                                        <div style="padding-top: 0px; font-size: 14px;">
+                                                        ${tollfree ? `
+                                                            <span style="font-weight: 600; color: #e70312;">
+                                                                <img class="signature-icon" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;" src="${tollfreelogo}">
+                                                            </span>
+                                                            &nbsp;
+                                                            
+                                                                <span style="display: inline-block; vertical-align: middle;" class="v-align-offset" id="compAddressField">
+                                                                    ${tollfree} (Toll Free)
+                                                                </span>
+                                                            ` : '<br>'}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                     <td style="padding:10px 0px 0px">
                                                         <div style="font-weight: bold;font-size:14px;">
                                                         </div>
                                                         <img
@@ -379,7 +399,6 @@ const EmailSignature = (props) => {
                         </fieldset>
                     </div>
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-
                     </div>
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
                         <fieldset class="fieldset">
@@ -439,9 +458,7 @@ const EmailSignature = (props) => {
                             </div>
                         </fieldset>
                     </div>
-
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-
                     </div>
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
                         <fieldset class="fieldset">
@@ -486,6 +503,22 @@ const EmailSignature = (props) => {
                                 />
                             </div>
                         </fieldset>
+                        <fieldset class="fieldset">
+                            <legend class="form-label">Toll Free Number</legend>
+                            <div class="form-group">
+                                <input
+                                    id="tollfree"
+                                    type="text"
+                                    value={tollfree}
+                                    onChange={handleInputChange}
+                                    placeholder='Enter office Phone Number'
+                                    name="tollfree"
+                                    className="form-input"
+                                />
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
                         <fieldset class="fieldset" >
                             <legend class="form-label">Photo </legend>
                             <div class="form-group">
@@ -498,38 +531,32 @@ const EmailSignature = (props) => {
                                     className="form-input"
                                 />
                             </div>
-                        </fieldset>
+                        </fieldset>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div className='test'>
+                            <button
+                                type="button" onClick={handleGenerateImage}
+                                style={{
+                                    backgroundColor: "#BF1E2E",
+                                    border: "none",
+                                    color: "white",
+                                    padding: "15px 32px",
+                                    textAlign: "center",
+                                    fontSize: "20px",
+                                    margin: "0 auto",
+                                    display: "block",
+                                    borderRadius: "5px",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                {'Export Signature'}
+                            </button>
+                            <ToastContainer />
+                        </div>
                     </div>
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
                     </div>
-
                     <br />
                 </form>
-
-
-                <div className='test'>
-                    {/* <CopyToClipboard text={generateSignature()} onCopy={() => { copyToClip("", imageUrl);  }}> */}
-                    <button
-                        type="button" onClick={handleGenerateImage}
-                        style={{
-                            backgroundColor: "#BF1E2E",
-                            border: "none",
-                            color: "white",
-                            padding: "15px 32px",
-                            textAlign: "center",
-                            fontSize: "20px",
-                            margin: "0 auto",
-                            display: "block",
-                            borderRadius: "5px",
-                            cursor: "pointer",
-                        }}
-                    >
-                        {'Export Signature'}
-                    </button>
-
-                    {/* </CopyToClipboard> */}
-                    <ToastContainer />
-                </div>
             </div>
             <Modal
                 isOpen={isModalOpen}
