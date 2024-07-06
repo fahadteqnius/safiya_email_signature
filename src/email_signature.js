@@ -92,7 +92,7 @@ const EmailSignature = (props) => {
                             <tbody >
                                 <tr >
                                 ${croppedImageUrl ? `
-                                <td style="padding-right:25px;padding-top:10px; padding-left:20px;" >
+                                <td style="padding-right:25px;padding-bottom:40px; padding-left:20px;" >
                                     <div class="image-container"; style="width: 200px; height: 200px; overflow: hidden; border-radius: 15px;">
                                         <img src="${croppedImageUrl}" style="width: 100%;" class="center-cropped"; />
                                     </div> 
@@ -156,7 +156,7 @@ const EmailSignature = (props) => {
                                         <hr style="width: 2px;border: 0; height: 165px; background-color: #D45F6D;">
                                     </td>
                                     <td>
-                                        <table style='padding-top:40px;padding-left:20px;padding-right:20px;line-height:1.4;font-size:80%;color:rgb(0,0,1)' cellspacing="0" cellpadding="0" border="0">
+                                        <table style='padding-top:0px;padding-left:20px;padding-right:20px;line-height:1.6;font-size:80%;color:rgb(0,0,1)' cellspacing="0" cellpadding="0" border="0">
                                             <tbody>
                                                 <tr>
                                                     <td>
@@ -171,7 +171,7 @@ const EmailSignature = (props) => {
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <div style="padding-top:50px;font-size:14px;">
+                                                        <div style="padding-top:60px;font-size:14px;">
                                                             <span style="font-weight:600;color:#e70312;">
                                                                 <img class="signature-icon" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;" src="${website}">
                                                             </span>
@@ -184,7 +184,7 @@ const EmailSignature = (props) => {
                                                 </tr>
 
                                                 <tr>
-                                                     <td style="padding:10px 0px 0px">
+                                                     <td style="padding:25px 0px 0px">
                                                         <div style="font-weight: bold;font-size:14px;">
                                                         </div>
                                                         <img
