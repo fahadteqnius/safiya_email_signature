@@ -111,9 +111,9 @@ const EmailSignature = (props) => {
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="padding-bottom: 8px; white-space: nowrap;">
+                                                    <td style="padding-bottom: 8px; white-space: nowrap; padding-left: 2px;">
                                                         <span style="font-weight: 600;">
-                                                            <img class="signature-icon" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;" src="https://i.ibb.co/k4XswKh/pngegg.png">
+                                                            <img class="signature-icon" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;" src="https://i.ibb.co/k4XswKh/pngegg.png">
                                                         </span>
                                                         &nbsp;
                                                         <span id="empWhatsappField" class="v-align-offset" style="display: inline-block; vertical-align: middle;">${whatsapp}</span>
@@ -138,7 +138,7 @@ const EmailSignature = (props) => {
                                                     </td>
                                                 </tr>
                                                 <tr style="margin: 0; padding: 0;">
-                                                    <td style="line-height: 0px; white-space: nowrap; margin: 0; padding: 0;">
+                                                    <td style="line-height: 0px; white-space: nowrap;padding-left: 2px; margin: 0;">
                                                         <span style="font-weight: 600; color: #e70312;">
                                                             <img class="signature-icon" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;" src="https://i.ibb.co/X8ScDq6/vecteezy-gmail-png-icon-16716465.png">
                                                         </span>
