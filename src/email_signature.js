@@ -279,8 +279,18 @@ const EmailSignature = (props) => {
         }
 
         // Generate the image
-        html2canvas(signatureContainer, { useCORS: true }).then((canvas) => {
-            canvas.toBlob((blob) => {
+        html2canvas(signatureContainer, { scale: 3, useCORS: true }).then((canvas) => {
+            // Resize the canvas to the original size
+            const originalWidth = canvas.width / 2;
+            const originalHeight = canvas.height / 2;
+
+            const resizedCanvas = document.createElement('canvas');
+            resizedCanvas.width = originalWidth;
+            resizedCanvas.height = originalHeight;
+
+            const ctx = resizedCanvas.getContext('2d');
+            ctx.drawImage(canvas, 0, 0, originalWidth, originalHeight);
+            resizedCanvas.toBlob((blob) => {
                 // Download the image
                 const tempAnchor = document.createElement('a');
                 tempAnchor.href = URL.createObjectURL(blob);
