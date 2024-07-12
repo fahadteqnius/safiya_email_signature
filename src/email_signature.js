@@ -279,7 +279,7 @@ const EmailSignature = (props) => {
         }
 
         // Generate the image
-        html2canvas(signatureContainer, { scale: 3, useCORS: true }).then((canvas) => {
+        html2canvas(signatureContainer, { scale: 2, useCORS: true }).then((canvas) => {
             // Resize the canvas to the original size
             const originalWidth = canvas.width / 2.5;
             const originalHeight = canvas.height / 2.5;
