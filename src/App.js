@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './firebaseConfig';
 import EmailSignature from './email_signature';
+import ListingPage from "./Listing";
 
 function App() {
   const logIn = () => {
@@ -89,7 +90,7 @@ function App() {
     <div>
       {user ? (
         <div>
-          <EmailSignature logout={logout} />
+          <ListingPage />
         </div>
       ) : (
         <div className="App">

@@ -2,7 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
-import { getStorage } from "firebase/storage";
+import firebase from "firebase/compat/app";
+import "firebase/compat/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -15,10 +16,15 @@ const firebaseConfig = {
   measurementId: "G-ECYG5W26Q4"
 };
 
+firebase.initializeApp(firebaseConfig);
+
+const storage = firebase.storage();
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const auth = getAuth();
-const storage = getStorage(app);
+const auth = getAuth(app);
+// const storage = getStorage(app);
 
-export {app, auth, storage};
+export default app;
+export {app, analytics, auth, storage};

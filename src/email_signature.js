@@ -7,10 +7,21 @@ import Cropper from './Cropper';
 import Modal from 'react-modal';
 import safiyaLogo from "./assets/safiya-logo.png";
 import telephone from "./assets/landphone.png";
+import whatsappimage from "./assets/whatsapp.png";
+import smartphone from "./assets/smartphone.png";
+import gmailimage from "./assets/gmail.png";
 import website from "./assets/website.png";
 import tollfreelogo from "./assets/tollfree-logo.png";
 
 
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { auth } from "./firebaseConfig";
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp,
+} from "firebase/firestore";
 
 
 const EmailSignature = (props) => {
@@ -33,6 +44,8 @@ const EmailSignature = (props) => {
     const [imageCropped, setImageCropped] = useState(true);
     const [croppedImageUrl, setCroppedImageUrl] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [saving, setSaving] = useState(false);
 
 
     const handleInputChange = (event) => {
@@ -118,7 +131,7 @@ const EmailSignature = (props) => {
                                                 <tr>
                                                     <td style="padding-bottom: 8px; white-space: nowrap; padding-left: 2px;">
                                                         <span style="font-weight: 600;">
-                                                            <img class="signature-icon" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;" src="https://i.ibb.co/k4XswKh/pngegg.png">
+                                                            <img class="signature-icon" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;" src="${whatsappimage}">
                                                         </span>
                                                         &nbsp;
                                                         <span id="empWhatsappField" class="v-align-offset" style="display: inline-block; vertical-align: middle;">${whatsapp}</span>
@@ -127,7 +140,7 @@ const EmailSignature = (props) => {
                                                 <tr>
                                                     <td style="line-height: 0px; white-space: nowrap; padding-bottom: 10px;">
                                                         <span style="font-weight: 600;">
-                                                            <img class="signature-icon" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;" src="https://i.ibb.co/w0smpPr/smartphone.png">
+                                                            <img class="signature-icon" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;" src="${smartphone}">
                                                         </span>
                                                         &nbsp;
                                                         <span id="empMobileField" class="v-align-offset" style="display: inline-block; vertical-align: middle;">${phone}</span>
@@ -145,7 +158,7 @@ const EmailSignature = (props) => {
                                                 <tr style="margin: 0; padding: 0;">
                                                     <td style="line-height: 0px; white-space: nowrap;padding-left: 2px; margin: 0;">
                                                         <span style="font-weight: 600; color: #e70312;">
-                                                            <img class="signature-icon" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;" src="https://i.ibb.co/X8ScDq6/vecteezy-gmail-png-icon-16716465.png">
+                                                            <img class="signature-icon" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;" src="${gmailimage}">
                                                         </span>
                                                         &nbsp;
                                                         <span id="empMobileField" class="v-align-offset" style="display: inline-block; vertical-align: middle;">${email}</span>
@@ -302,10 +315,8 @@ const EmailSignature = (props) => {
                 // Copy the image to the clipboard
                 const item = new ClipboardItem({ "image/png": blob });
                 navigator.clipboard.write([item]).then(() => {
-                    // toast.success("Signature image copied to clipboard!");
                 }).catch(err => {
                     console.error('Failed to copy image to clipboard: ', err);
-                    // toast.error("Failed to copy image to clipboard.");
                 });
 
                 // Reset footer styles
@@ -327,25 +338,82 @@ const EmailSignature = (props) => {
         setIsModalOpen(false);
     };
 
+    // const storage = getStorage();
+    const db = getFirestore();
+
+    const captureAndUpload = async (e) => {
+        e.preventDefault();
+        setSaving(true);
+
+        console.log(`Uploading`);
+
+        const canvas = await html2canvas(document.getElementById("signature-container"));
+        canvas.toBlob((blob) => {
+            uploadToFirebase(blob);
+        });
+    }
+
+
+    const uploadToFirebase = async (blob) => {
+        let timestamp = Date.now().toString();
+        const storage = getStorage();
+        const imageRef = ref(storage, `emailignatures/${timestamp}_poster.png`);
+        await uploadBytes(imageRef, blob);
+        const posterURL = await getDownloadURL(imageRef);
+        console.log("File available at", posterURL);
+
+        const imageRef2 = ref(storage, `emailignatures/${timestamp}_image.png`);
+        await uploadBytes(imageRef2, image);
+        const fileURL = await getDownloadURL(imageRef2);
+        console.log("File available at", fileURL);
+
+        saveDataInFirestore(posterURL, fileURL);
+    };
+    const saveDataInFirestore = async (posterUrl, imageUrl) => {
+        const userEmail = auth.currentUser ? auth.currentUser.email : null;
+        if (!userEmail) {
+            alert("No authenticated user found. Please sign in.");
+            return;
+        }
+        
+
+        await addDoc(collection(db, "emailSignatures"), {
+            name:name,
+            jobTitle:jobTitle,
+            phone: phone,
+            whatsapp: whatsapp,
+            Email: email,
+            companyName: company,
+            officeLandline: officeLandline,
+            officePhoneNumber: officePhone,
+            addressLine1: line1,
+            addressLine2: line2,
+            addressLine3: line3,
+            tollfreeNumber:tollfree,
+            image: imageUrl,
+            poster: posterUrl,
+            created_at: serverTimestamp(),
+            updated_at: serverTimestamp(),
+            updated_by: userEmail,
+            created_by: userEmail,
+        })
+            .then(() => {
+                toast.success("Signature saved successfully");
+                setSaving(true);
+            })
+            .catch((error) => {
+                toast.error("Error writing document: ", error);
+                setSaving(false);
+            });
+    };
+
 
 
 
     return (
 
         <div id="test" className="container">
-            <h2 style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                backgroundColor: "#BF1E2E",
-                color: "white",
-                padding: "15px 32px",
-                fontSize: "20px",
-                margin: "0 auto",
-            }}>
-                Email Signature Generator
-                <button className='logout_but' onClick={() => props.logout()} style={{ marginLeft: "auto", border: "none", background: "none", color: "white", cursor: "pointer" }}>Log Out</button>
-            </h2>
+
             <br />
             <div id="test" class="container">
                 <form className="form" style={{ margin: "-10px  0px -20px 0px", display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -543,6 +611,26 @@ const EmailSignature = (props) => {
                             </div>
                         </fieldset>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <div className='test'>
+                            <button onClick={captureAndUpload}
+                                style={{
+                                    backgroundColor: "#BF1E2E",
+                                    border: "none",
+                                    color: "white",
+                                    padding: "15px 32px",
+                                    textAlign: "center",
+                                    fontSize: "20px",
+                                    margin: "0 auto",
+                                    display: "block",
+                                    borderRadius: "5px",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                {'Save Signature'}
+                            </button>
+                            <ToastContainer />
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div className='test'>
                             <button
                                 type="button" onClick={handleGenerateImage}
                                 style={{
@@ -562,8 +650,6 @@ const EmailSignature = (props) => {
                             </button>
                             <ToastContainer />
                         </div>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
                     </div>
                     <br />
                 </form>
